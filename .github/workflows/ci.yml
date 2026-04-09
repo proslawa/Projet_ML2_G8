@@ -20,4 +20,8 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Run tests
         run: |
-          if [ -d test ]; then python -m pytest -q; else echo "No tests directory"; fi
+          if ls test/test_*.py 1> /dev/null 2>&1; then
+            python -m pytest -q
+          else
+            echo "No test files found"
+          fi
