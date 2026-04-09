@@ -1,0 +1,11 @@
+name: "AdaBoost"
+scaler: "none"
+params:
+  _target_: sklearn.ensemble.AdaBoostClassifier
+  n_estimators: 200
+  learning_rate: 0.5
+  random_state: 42
+
+search_space:
+  n_estimators: [100, 200, 400]
+  learning_rate: [0.1, 0.5, 1.0]

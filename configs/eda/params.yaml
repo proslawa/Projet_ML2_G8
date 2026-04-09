@@ -1,0 +1,12 @@
+# Paramètres de chargement
+loading:
+  encoding: "utf-8"
+  low_memory: false
+  na_values: ["", "NA", "N/A", "null", "NaN"]
+
+# Paramètres visuels pour  notebooks
+display:
+  max_rows: 50
+  max_columns: 30
+  style: "seaborn-v0_8"
+

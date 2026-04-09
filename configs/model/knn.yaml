@@ -1,0 +1,11 @@
+name: "KNN"
+scaler: "standard"
+params:
+  _target_: sklearn.neighbors.KNeighborsClassifier
+  n_neighbors: 5
+  weights: "uniform"
+  metric: "minkowski"
+
+search_space:
+  n_neighbors: [3, 5, 7, 11]
+  weights: ["uniform", "distance"]

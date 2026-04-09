@@ -1,0 +1,8 @@
+# Configuration de nettoyage (placeholder)
+# A remplacer apres l'EDA du dataset Bank Churn
+
+pipeline: []
+
+notes:
+  - "Aucun nettoyage defini pour l'instant."
+  - "A completer une fois les colonnes et anomalies identifiees."

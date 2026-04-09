@@ -1,0 +1,11 @@
+# Configuration MLflow (peut être surchargée en local)
+tracking:
+  # En local, utilise un dossier "mlruns" à la racine du projet
+  uri: "file:./mlruns"
+  experiment_name: "bank_churn_experiment"
+
+run:
+  # Tags par défaut pour la traçabilité
+  tags:
+    project: "bank_churn_ml"
+    stage: "dev"

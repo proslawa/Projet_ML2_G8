@@ -1,0 +1,7 @@
+name: "NaiveBayes"
+scaler: "none"
+params:
+  _target_: sklearn.naive_bayes.GaussianNB
+
+search_space:
+  var_smoothing: [1e-9, 1e-8, 1e-7]

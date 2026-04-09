@@ -1,0 +1,10 @@
+name: "DecisionTree"
+scaler: "none"
+params:
+  _target_: sklearn.tree.DecisionTreeClassifier
+  max_depth: null
+  random_state: 42
+
+search_space:
+  max_depth: [3, 5, 10, null]
+  min_samples_split: [2, 5, 10]

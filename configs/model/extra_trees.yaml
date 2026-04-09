@@ -1,0 +1,10 @@
+name: "ExtraTrees"
+scaler: "none"
+params:
+  _target_: sklearn.ensemble.ExtraTreesClassifier
+  n_estimators: 200
+  random_state: 42
+
+search_space:
+  n_estimators: [100, 200, 400]
+  max_depth: [10, 20, null]

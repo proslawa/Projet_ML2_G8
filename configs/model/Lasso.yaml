@@ -1,0 +1,11 @@
+name: "LogisticRegression"
+params:
+  _target_: sklearn.linear_model.LogisticRegression
+  C: 1.0
+  max_iter: 2000
+  solver: "lbfgs"
+
+scaler: "standard"
+
+search_space:
+  C: [0.01, 0.1, 1.0, 10.0]

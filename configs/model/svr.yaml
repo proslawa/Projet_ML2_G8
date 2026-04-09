@@ -1,0 +1,12 @@
+name: "SVC"
+scaler: "standard"
+params:
+  _target_: sklearn.svm.SVC
+  kernel: "rbf"
+  C: 1.0
+  gamma: "scale"
+  probability: true
+
+search_space:
+  model__C: [0.1, 1, 10, 100]
+  model__gamma: ["scale", "auto"]

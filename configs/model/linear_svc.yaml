@@ -1,0 +1,10 @@
+name: "LinearSVC"
+scaler: "standard"
+params:
+  _target_: sklearn.svm.LinearSVC
+  C: 1.0
+  max_iter: 5000
+  dual: true
+
+search_space:
+  C: [0.1, 1.0, 10.0]

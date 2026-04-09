@@ -1,0 +1,25 @@
+# Configuration des chemins (Relatifs a la racine)
+raw:
+  dir: "data/raw"
+  file: "Bank_churn.csv"
+  # Lien Google Drive (telechargement direct)
+  # Astuce: format = https://drive.google.com/uc?export=download&id=<FILE_ID>
+  url: "https://drive.google.com/uc?export=download&id=15kwiHh8YBe41TLFsZGNKG8AePvB4ot0V"
+# Donnees silver (Nettoyees mais non transformees)
+interim:
+  dir: "data/interim"
+  file: "data_cleaned.csv"
+
+# Donnees finales (Pretes pour le modele)
+processed:
+  dir: "data/processed"
+  file: "data_final.csv"
+
+metadata:
+  file: "data/metadata.json"
+  output_doc: "reports/notebook_0/data_dictionary_auto.md"
+
+figures:
+  dir: "figures"
+reports:
+  dir: "reports"

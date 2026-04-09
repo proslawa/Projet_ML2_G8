@@ -1,0 +1,30 @@
+# Configuration principale du projet Seattle Energy ML
+# Date: 26 Décembre 2025
+
+defaults:
+  - data: paths
+  - eda: params
+  - cleaning: default 
+
+  - feature_engineering: default
+  - model: rf_baseline # Par défaut, on lance la baseline
+  - mlflow: default
+  - ci: github_actions
+  - _self_
+
+# Informations projet
+project:
+  name: "bank_churn_ml"
+  description: "Classification du churn bancaire"
+  version: "1.0.0"
+  root: ${project_root:} # Optionnel : utilise le resolver pour plus de propreté
+
+# Configuration globale
+global:
+  random_seed: 42
+  verbose: true
+  
+# Logging
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
