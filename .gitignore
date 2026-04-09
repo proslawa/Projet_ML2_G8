@@ -21,8 +21,9 @@ ENV/
 .ipynb_checkpoints/
 
 # ML data & artifacts
-data/**
-!data/README.md
+data/**/*.csv
+data/**/*.xlsx
+data/**/*.xls
 *.csv
 *.xlsx
 *.xls

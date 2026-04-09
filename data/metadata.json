@@ -1,0 +1,12 @@
+[
+  {
+    "timestamp": "2026-04-08T16:10:48.757303",
+    "user": "DELL",
+    "file_name": "Bank_churn.csv",
+    "file_hash": "4b3f83fe8ee6196792bb470471575ae3",
+    "n_rows": 165034,
+    "n_columns": 14,
+    "memory_mb": 43.5,
+    "status": "created"
+  }
+]
