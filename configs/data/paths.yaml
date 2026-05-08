@@ -17,7 +17,7 @@ processed:
 
 metadata:
   file: "data/metadata.json"
-  output_doc: "reports/notebook_0/data_dictionary_auto.md"
+  output_doc: "reports/00_notebook/data_dictionary_auto.md"
 
 figures:
   dir: "figures"

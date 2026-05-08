@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/DELL/Desktop/ise2/Semestre2/Statistiques/Machine%20Learning%202/Projet_ML2/Projet_ML2_G8/mlruns/774650590283197308/7c7bdf7df4f9403e8392d556af00ab05/artifacts
+end_time: 1777152425284
+entry_point_name: ''
+experiment_id: '774650590283197308'
+lifecycle_stage: active
+run_id: 7c7bdf7df4f9403e8392d556af00ab05
+run_name: LogisticRegression
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1777152424824
+status: 3
+tags: []
+user_id: DELL

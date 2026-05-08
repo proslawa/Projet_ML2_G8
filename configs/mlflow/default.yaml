@@ -1,11 +1,24 @@
-# Configuration MLflow (peut être surchargée en local)
+# Configuration MLflow — Bank Churn G8
+# URI locale : les runs sont stockés dans <projet>/mlruns/
+# Pour visualiser : mlflow ui --port 5000  →  http://127.0.0.1:5000
+
 tracking:
-  # En local, utilise un dossier "mlruns" à la racine du projet
+  enabled: true
   uri: "file:./mlruns"
-  experiment_name: "bank_churn_experiment"
+  experiment_name: "churn_score"
+  artifact_location: "mlruns"
 
 run:
-  # Tags par défaut pour la traçabilité
+  default_name: "bank_churn_run"
   tags:
     project: "bank_churn_ml"
     stage: "dev"
+    owner: "team_g8"
+    pipeline: "modelisation"
+
+logging:
+  log_full_config: true
+  config_sections:
+    - data
+    - feature_engineering
+    - mlflow

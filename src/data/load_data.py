@@ -177,3 +177,4 @@ def load_data_cleaned(cfg: DictConfig) -> pd.DataFrame:
     except Exception as e:
         logger.error(f"Erreur lors de la lecture du CSV nettoye : {e}")
         raise
+# end

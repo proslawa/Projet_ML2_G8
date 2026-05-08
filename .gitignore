@@ -27,12 +27,10 @@ data/**/*.xls
 *.csv
 *.xlsx
 *.xls
-mlruns/
-models/
+/models/
 artifacts/
 
 # Reports & figures (generated)
-figures/
 reports/**/figures/
 reports/**/artifacts/
 

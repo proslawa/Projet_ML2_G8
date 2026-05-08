@@ -16,10 +16,11 @@ Fonctionnalités :
 
 
 import logging
+
 import pandas as pd
 from omegaconf import DictConfig
 
-from feature_engineering.feature_engineering import feature_engineering_seattle
+from .feature_engineering import feature_engineering_seattle
 from utils.config_loader import PROJECT_ROOT
 
 logger = logging.getLogger(__name__)
@@ -33,10 +34,7 @@ def run_feature_engineering_pipeline(df: pd.DataFrame, cfg: DictConfig) -> pd.Da
     # Préparation des arguments depuis la config Hydra
     output_dir = (PROJECT_ROOT / cfg.feature_engineering.output_dir).resolve()
 
-    #filename = cfg.feature_engineering.filename
-    filename=None
-    if filename is None:
-        filename = f"{getattr(df, 'name', 'features')}.csv"
+    filename = cfg.feature_engineering.filename
 
     df_fe = feature_engineering_seattle(
         df=df,

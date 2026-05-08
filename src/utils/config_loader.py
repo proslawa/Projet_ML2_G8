@@ -98,3 +98,4 @@ if __name__ == "__main__":
     create_directories(config)
     # Affichage pour vérification
     print(OmegaConf.to_yaml(config))
+# end

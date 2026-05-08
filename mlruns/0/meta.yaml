@@ -1,0 +1,9 @@
+# MLflow default experiment
+artifact_location: file:///C:/Users/DELL/Desktop/ise2/Semestre2/Statistiques/Machine%20Learning%202/Projet_ML2/Projet_ML2_G8/mlruns/0
+creation_time: 1777120963845
+experiment_id: '0'
+last_update_time: 1777120963845
+lifecycle_stage: active
+name: Default
+trace_location: null
+workspace: default

@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/DELL/Desktop/ise2/Semestre2/Statistiques/Machine%20Learning%202/Projet_ML2/Projet_ML2_G8/mlruns/774650590283197308/0a95d0056fe14d12b9fe64e2d440df65/artifacts
+end_time: 1777666891195
+entry_point_name: ''
+experiment_id: '774650590283197308'
+lifecycle_stage: active
+run_id: 0a95d0056fe14d12b9fe64e2d440df65
+run_name: GradientBoosting
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1777666890898
+status: 3
+tags: []
+user_id: DELL

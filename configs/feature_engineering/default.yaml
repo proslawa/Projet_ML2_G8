@@ -1,0 +1,27 @@
+output_dir: "data/processed"
+filename: "data_final.csv"
+
+params:
+  year_ref: 2026
+  eps: 0.000001
+
+selection:
+  drop_leaky: true
+  keep_raw_energy: true
+
+created_features:
+  - CreditScore
+  - Age
+  - Tenure
+  - Balance
+  - NumOfProducts
+  - HasCrCard
+  - IsActiveMember
+  - EstimatedSalary
+  - Geography_Germany
+  - Geography_Spain
+  - Gender_Male
+  - Balance_per_Product
+  - Tenure_Age_Ratio
+  - Balance_Age_Ratio
+  - Salary_Age

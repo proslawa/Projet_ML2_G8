@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/DELL/Desktop/ise2/Semestre2/Statistiques/Machine%20Learning%202/Projet_ML2/Projet_ML2_G8/mlruns/279843661851766311/abf183b7df4d4f16af439512081e7545/artifacts
+end_time: 1777120991341
+entry_point_name: ''
+experiment_id: '279843661851766311'
+lifecycle_stage: active
+run_id: abf183b7df4d4f16af439512081e7545
+run_name: XGBoost_run
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1777120965183
+status: 3
+tags: []
+user_id: DELL
