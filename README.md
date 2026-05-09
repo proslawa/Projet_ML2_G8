@@ -72,7 +72,7 @@ Ce projet couvre l'ensemble de la chaîne data science pour prédire le **dépar
   - Beeswarm plot (importance globale des variables).
 - Rapports exportés dans `reports/03b_notebook/`.
 
-![Comparaison des modèles — Jeu de test](reports/03b_notebook/images/benchmark_metrics.png)
+![Comparaison des modèles — Jeu de test](reports/03b_notebook/images/benchmark_metrics1.png)
 
 ## Métrique métier — FBPS
 
