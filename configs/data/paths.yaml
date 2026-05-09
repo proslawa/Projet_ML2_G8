@@ -14,6 +14,9 @@ interim:
 processed:
   dir: "data/processed"
   file: "data_final.csv"
+  # Splits pre-traites (produits par notebook 02, charges par notebooks 03a/03b)
+  train: "train_processed.csv"
+  test: "test_processed.csv"
 
 metadata:
   file: "data/metadata.json"

@@ -1,8 +1,45 @@
-# Configuration de nettoyage (placeholder)
-# A remplacer apres l'EDA du dataset Bank Churn
+# Ordre des étapes de nettoyage — respecté strictement par run_cleaning_pipeline()
+# Le split train/test est effectué AVANT ces étapes.
+# Chaque étape est fittée sur df_train uniquement, puis appliquée à df_test.
+# df_train et df_test incluent la colonne cible pour garantir l'alignement.
 
-pipeline: []
+target_col: Exited
 
-notes:
-  - "Aucun nettoyage defini pour l'instant."
-  - "A completer une fois les colonnes et anomalies identifiees."
+pipeline:
+  - outlier_capper
+  - business_constraints
+
+steps:
+
+  outlier_capper:
+    factor: 3.0
+    columns:
+      - CreditScore
+      - Age
+      - Tenure
+      - Balance
+      - EstimatedSalary
+
+  business_constraints:
+    bounds:
+      CreditScore:
+        min: 300
+        max: 850
+      Age:
+        min: 18
+        max: 120
+      Tenure:
+        min: 0
+        max: 50
+      Balance:
+        min: 0
+        max: null
+      NumOfProducts:
+        min: 1
+        max: 10
+      HasCrCard:
+        min: 0
+        max: 1
+      IsActiveMember:
+        min: 0
+        max: 1
