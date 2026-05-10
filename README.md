@@ -16,6 +16,9 @@
 
 Ce projet couvre l'ensemble de la chaîne data science pour prédire le **départ volontaire (churn) des clients** de Fortuneo Bank. Il combine ingestion contrôlée, audit de qualité, nettoyage par règles métier, feature engineering structuré, modélisation comparative et optimisation métier via la métrique FBPS (Financial Business Performance Score).
 
+Voir le déploiement ici :
+[Prediction_churn_bancaire_fortuneo](https://fortuneo-churn-score-frontend.onrender.com/)
+
 ## Objectifs et périmètre
 
 - Prédire la variable cible `Exited` (churn binaire) à partir des données clients Fortuneo.
@@ -46,12 +49,12 @@ Ce projet couvre l'ensemble de la chaîne data science pour prédire le **dépar
 - **Section 5** : vérification des contraintes métier (bornes FICO, âge, solde…).
 - **Sections 6–7** : construction des variables explicatives et variables dérivées :
 
-  | Variable construite | Description |
-  |---|---|
+  | Variable construite   | Description                    |
+  | --------------------- | ------------------------------ |
   | `Balance_per_Product` | Solde moyen par produit détenu |
-  | `Tenure_Age_Ratio` | Ancienneté relative à l'âge |
-  | `Balance_Age_Ratio` | Ratio solde / âge |
-  | `Salary_Age` | Interaction salaire × âge |
+  | `Tenure_Age_Ratio`    | Ancienneté relative à l'âge    |
+  | `Balance_Age_Ratio`   | Ratio solde / âge              |
+  | `Salary_Age`          | Interaction salaire × âge      |
 
 - Pipeline paramétré via `configs/feature_engineering/default.yaml`.
 - Rapports exportés dans `reports/02_notebook/`.
@@ -92,11 +95,11 @@ Implémentée dans `src/metrics/fbps.py` et intégrée dans toutes les évaluati
 
 Les artefacts des meilleurs modèles (issus de 03a et 03b) sont sérialisés en trois formats :
 
-| Format | Fichier |
-|---|---|
+| Format | Fichier                                       |
+| ------ | --------------------------------------------- |
 | joblib | `best_model/gradientboosting_pipeline.joblib` |
-| pickle | `best_model/gradientboosting_pipeline.pkl` |
-| dill | `best_model/gradientboosting_pipeline.dill` |
+| pickle | `best_model/gradientboosting_pipeline.pkl`    |
+| dill   | `best_model/gradientboosting_pipeline.dill`   |
 
 Tracking MLflow disponible localement dans `mlruns/`.
 
@@ -161,7 +164,7 @@ pytest
 
 ## Déploiement
 
-- A compléter
+- Le déploiement s'est fait via un API fait avec FastAPI qui sert le meilleur modèle entrainé via une interface realisée en avec ReactJS et Vite. La plateforme utilisée pour ce déploiement est _Render_ qui utilise le repository GitHub pour le faire.
 
 ## Configuration
 
@@ -177,15 +180,15 @@ pytest
 
 ## Livrables clés
 
-| Livrable | Chemin |
-|---|---|
-| Notebook EDA | `notebooks/01_notebook_eda.ipynb` |
-| Notebook Feature Engineering | `notebooks/02_notebook_processing_feature_engineering.ipynb` |
-| Notebook modélisation (base) | `notebooks/03a_notebook_modelisation.ipynb` |
-| Notebook modélisation (seuil optimisé) | `notebooks/03b_notebook_modelisation.ipynb` |
-| Métrique FBPS | `src/metrics/fbps.py` |
-| Meilleur modèle | `best_model/` |
-| Rapports et figures | `reports/` |
+| Livrable                               | Chemin                                                       |
+| -------------------------------------- | ------------------------------------------------------------ |
+| Notebook EDA                           | `notebooks/01_notebook_eda.ipynb`                            |
+| Notebook Feature Engineering           | `notebooks/02_notebook_processing_feature_engineering.ipynb` |
+| Notebook modélisation (base)           | `notebooks/03a_notebook_modelisation.ipynb`                  |
+| Notebook modélisation (seuil optimisé) | `notebooks/03b_notebook_modelisation.ipynb`                  |
+| Métrique FBPS                          | `src/metrics/fbps.py`                                        |
+| Meilleur modèle                        | `best_model/`                                                |
+| Rapports et figures                    | `reports/`                                                   |
 
 ## Contributeurs
 
