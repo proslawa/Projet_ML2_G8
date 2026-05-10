@@ -105,21 +105,27 @@ Tracking MLflow disponible localement dans `mlruns/`.
 
 ## Structure du dépôt
 
-```
+```text
 best_model/            # Artefacts du meilleur modèle (joblib, pkl, dill)
 configs/               # Configs Hydra (chemins, nettoyage, FE, modèles, MLflow)
 data/                  # Raw, interim, processed + metadata.json
 figures/               # Graphiques de diagnostics et logo
+frontend/              # Interface utilisateur ReactJS (Dashboard Fintech)
 mlruns/                # Tracking local MLflow
 notebooks/             # Notebooks d'analyse et modélisation
 reports/               # Images et synthèses exportées par notebook
 src/
-├── data/              # Chargement et nettoyage
-├── feature_engineering/  # Construction des features
+├── api/               # API FastAPI servant le modèle pour la prédiction
+├── cleaning_steps/    # Étapes de nettoyage des données
+├── data/              # Chargement et préparation initiale
+├── eda/               # Scripts pour l'analyse exploratoire (EDA)
+├── feature_engineering/  # Construction des features (variables dérivées)
 ├── metrics/           # Métrique FBPS personnalisée
-├── models/            # Entraînement
+├── models/            # Entraînement et sérialisation des modèles
+├── tools/             # Scripts utilitaires divers
 └── utils/             # Config, MLflow, logging
 test/                  # Tests unitaires pytest
+render.yaml            # Configuration de déploiement (plateforme Render)
 ```
 
 ## Démarrage rapide
