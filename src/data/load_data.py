@@ -46,10 +46,32 @@ def download_file(url: str, dest_path: Path) -> None:
 
     logger.info(f"Téléchargement en cours depuis : {url}")
     try:
-        response = requests.get(url, timeout=30)
+        session = requests.Session()
+        headers = {"User-Agent": "Mozilla/5.0"}
+        response = session.get(url, headers=headers, stream=True, timeout=30)
+
+        confirm_token = None
+        for cookie_name, cookie_value in response.cookies.items():
+            if cookie_name.startswith("download_warning"):
+                confirm_token = cookie_value
+                break
+
+        if confirm_token:
+            response = session.get(
+                url,
+                headers=headers,
+                params={"confirm": confirm_token},
+                stream=True,
+                timeout=30,
+            )
+
         response.raise_for_status()
         dest_path.parent.mkdir(parents=True, exist_ok=True)
-        dest_path.write_bytes(response.content)
+
+        with open(dest_path, "wb") as f:
+            for chunk in response.iter_content(chunk_size=32768):
+                if chunk:
+                    f.write(chunk)
 
         logger.info("✓ Téléchargement terminé avec succès.")
     except requests.exceptions.RequestException as e:
@@ -63,10 +85,10 @@ def save_metadata(df: pd.DataFrame, cfg: DictConfig, file_path: Path) -> None:
     Gère un historique (liste) au lieu d'écraser le fichier.
     """
     meta_path = _resolve_path(cfg.data.metadata.file)
-    
+
     # 1. Calcul de l'empreinte actuelle
     current_hash = _get_file_hash(file_path)
-    
+
     # 2. Construction de la nouvelle entrée
     new_record = {
         "timestamp": datetime.now().isoformat(),
@@ -76,7 +98,7 @@ def save_metadata(df: pd.DataFrame, cfg: DictConfig, file_path: Path) -> None:
         "n_rows": int(df.shape[0]),
         "n_columns": int(df.shape[1]),
         "memory_mb": round(df.memory_usage(deep=True).sum() / (1024**2), 2),
-        "status": "unchanged" # Par défaut
+        "status": "unchanged",  # Par défaut
     }
 
     # 3. Chargement de l'historique existant
@@ -97,7 +119,7 @@ def save_metadata(df: pd.DataFrame, cfg: DictConfig, file_path: Path) -> None:
     # 4. Logique de détection de changement
     last_record = history[-1] if history else None
     data_has_changed = False
-    
+
     if last_record is None:
         new_record["status"] = "created"
         data_has_changed = True
@@ -106,7 +128,9 @@ def save_metadata(df: pd.DataFrame, cfg: DictConfig, file_path: Path) -> None:
         data_has_changed = True
         # On ne loggue l'alerte QUE si le fichier n'est pas celui qu'on vient de produire
         # Pour l'instant, on reste informatif :
-        logger.info(f" Nouvelle version détectée pour {file_path.name} (MàJ de l'historique).")
+        logger.info(
+            f" Nouvelle version détectée pour {file_path.name} (MàJ de l'historique)."
+        )
     else:
         logger.info(f" {file_path.name} : Identique à la version précédente.")
         return
@@ -136,18 +160,41 @@ def load_data_raw(cfg: DictConfig) -> pd.DataFrame:
         "na_values": cfg.eda.loading.na_values,
     }
 
+    def _read_raw() -> pd.DataFrame:
+        return pd.read_csv(raw_path, **load_params)
+
     try:
-        df = pd.read_csv(raw_path, **load_params)
-        logger.info(f"DataFrame chargé : {df.shape[0]} lignes, {df.shape[1]} colonnes")
-        
-        # APPEL AUTOMATIQUE DE L'AUDIT ICI
-        # On passe raw_path pour calculer le hash du fichier source
-        save_metadata(df, cfg, raw_path) 
-        
-        return df
+        df = _read_raw()
     except Exception as e:
-        logger.error(f"Erreur lors de la lecture du CSV : {e}")
-        raise
+        logger.warning(
+            "Lecture CSV échouée (%s). Tentative de re-téléchargement du fichier brut.",
+            e,
+        )
+        try:
+            if raw_path.exists():
+                raw_path.unlink()
+        except OSError:
+            logger.warning(
+                "Impossible de supprimer le fichier brut corrompu : %s", raw_path
+            )
+
+        download_file(url=cfg.data.raw.url, dest_path=raw_path)
+
+        try:
+            df = _read_raw()
+        except Exception as second_error:
+            logger.error(
+                f"Erreur lors de la lecture du CSV après re-téléchargement : {second_error}"
+            )
+            raise
+
+    logger.info(f"DataFrame chargé : {df.shape[0]} lignes, {df.shape[1]} colonnes")
+
+    # APPEL AUTOMATIQUE DE L'AUDIT ICI
+    # On passe raw_path pour calculer le hash du fichier source
+    save_metadata(df, cfg, raw_path)
+
+    return df
 
 
 def load_data_cleaned(cfg: DictConfig) -> pd.DataFrame:
@@ -177,4 +224,3 @@ def load_data_cleaned(cfg: DictConfig) -> pd.DataFrame:
     except Exception as e:
         logger.error(f"Erreur lors de la lecture du CSV nettoye : {e}")
         raise
-# end
