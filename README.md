@@ -161,16 +161,7 @@ pytest
 
 ## Déploiement
 
-> ⚙️ *Section en cours de finalisation par le membre responsable du déploiement.*
-
-La mise en production de l'API de prédiction est assurée via **[Render](https://render.com)**.
-
-| Élément | Détail |
-|---|---|
-| Plateforme | Render (Web Service) |
-| URL de l'API | *à compléter* |
-| Format d'entrée | *à compléter* |
-| Format de sortie | *à compléter* |
+- A compléter
 
 ## Configuration
 
