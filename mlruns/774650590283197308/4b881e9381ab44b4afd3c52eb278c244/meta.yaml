@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/DELL/Desktop/ise2/Semestre2/Statistiques/Machine%20Learning%202/Projet_ML2/Projet_ML2_G8/mlruns/774650590283197308/4b881e9381ab44b4afd3c52eb278c244/artifacts
+end_time: 1778410235503
+entry_point_name: ''
+experiment_id: '774650590283197308'
+lifecycle_stage: active
+run_id: 4b881e9381ab44b4afd3c52eb278c244
+run_name: LightGBM
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1778410235151
+status: 3
+tags: []
+user_id: DELL

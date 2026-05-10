@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/DELL/Desktop/ise2/Semestre2/Statistiques/Machine%20Learning%202/Projet_ML2/Projet_ML2_G8/mlruns/774650590283197308/e6021e77f6d14daba86770e2d9c72e92/artifacts
+end_time: 1778409839820
+entry_point_name: ''
+experiment_id: '774650590283197308'
+lifecycle_stage: active
+run_id: e6021e77f6d14daba86770e2d9c72e92
+run_name: RandomForest
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1778409839551
+status: 3
+tags: []
+user_id: DELL

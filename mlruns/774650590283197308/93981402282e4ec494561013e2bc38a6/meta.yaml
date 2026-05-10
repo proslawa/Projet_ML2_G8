@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/DELL/Desktop/ise2/Semestre2/Statistiques/Machine%20Learning%202/Projet_ML2/Projet_ML2_G8/mlruns/774650590283197308/93981402282e4ec494561013e2bc38a6/artifacts
+end_time: 1778410222863
+entry_point_name: ''
+experiment_id: '774650590283197308'
+lifecycle_stage: active
+run_id: 93981402282e4ec494561013e2bc38a6
+run_name: KNN
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1778410222733
+status: 3
+tags: []
+user_id: DELL
