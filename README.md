@@ -16,6 +16,8 @@
 
 Ce projet couvre l'ensemble de la chaîne data science pour prédire le **départ volontaire (churn) des clients** de Fortuneo Bank. Il combine ingestion contrôlée, audit de qualité, nettoyage par règles métier, feature engineering structuré, modélisation comparative et optimisation métier via la métrique FBPS (Financial Business Performance Score).
 
+Voir le lien vers la présentation Canva : [Lien_Canva]( https://canva.link/kheknr1ru6rppkj)
+
 Voir le déploiement ici :
 [Prediction_churn_bancaire_fortuneo](https://fortuneo-churn-score-frontend.onrender.com/)
 
