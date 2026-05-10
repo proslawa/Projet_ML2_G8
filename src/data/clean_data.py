@@ -1,88 +1,66 @@
 import logging
 import pandas as pd
-from omegaconf import DictConfig, OmegaConf
-
+from omegaconf import DictConfig
 from utils.config_loader import PROJECT_ROOT
-from .load_data import save_metadata
-from cleaning_steps import STEP_REGISTRY
+from pathlib import Path
+from .load_data import save_metadata 
+
+
+# Import des étapes
+from cleaning_steps.section_0 import Section0
+from cleaning_steps.section_1 import Section1
+from cleaning_steps.section_2 import Section2
+from cleaning_steps.section_3 import Section3
 
 logger = logging.getLogger(__name__)
 
-
-def run_cleaning_pipeline(
-    df_train: pd.DataFrame,
-    df_test: pd.DataFrame,
-    cfg: DictConfig,
-) -> tuple:
-    """Pipeline de nettoyage sans data leakage.
-
-    Chaque étape est fittée sur df_train uniquement, puis appliquée à df_test.
-    Les DataFrames incluent la colonne cible pour maintenir l'alignement X/y
-    en cas de suppression de lignes (ex. BusinessConstraints).
-
-    Paramètres
-    ----------
-    df_train : DataFrame d'entraînement complet (features + cible)
-    df_test  : DataFrame de test complet (features + cible)
-    cfg      : configuration Hydra (cleaning.pipeline + cleaning.steps)
-
-    Retourne
-    --------
-    (df_train_clean, df_test_clean)
-
-    Exemple d'utilisation
-    ---------------------
-    df_train_clean, df_test_clean = run_cleaning_pipeline(df_train, df_test, cfg)
-
-    target = cfg.cleaning.target_col
-    X_train, y_train = df_train_clean.drop(columns=[target]), df_train_clean[target]
-    X_test,  y_test  = df_test_clean.drop(columns=[target]),  df_test_clean[target]
-    """
-    pipeline_order = list(cfg.cleaning.pipeline)
-    steps_cfg = OmegaConf.to_container(cfg.cleaning.steps, resolve=True)
-
-    if not pipeline_order:
-        logger.info("Aucune étape de nettoyage — données retournées telles quelles.")
-        return df_train.copy(), df_test.copy()
-
-    logger.info(f"Pipeline de nettoyage : {pipeline_order}")
-
-    for step_name in pipeline_order:
-        if step_name not in STEP_REGISTRY:
-            raise ValueError(
-                f"Étape '{step_name}' inconnue. "
-                f"Disponibles : {list(STEP_REGISTRY.keys())}"
-            )
-
-        params = steps_cfg.get(step_name, {})
-        step = STEP_REGISTRY[step_name](name=step_name, params=params)
-
-        logger.info(f"--- fit sur df_train : {step_name} ---")
-        df_train = step.fit_transform(df_train)
-
-        logger.info(f"--- transform sur df_test : {step_name} ---")
-        df_test = step.transform(df_test)
-
-    logger.info(
-        f"Nettoyage terminé — train : {df_train.shape}, test : {df_test.shape}"
-    )
-    return df_train, df_test
-
-
-def save_cleaned_data(
-    df_train: pd.DataFrame,
-    df_test: pd.DataFrame,
-    cfg: DictConfig,
-) -> None:
-    """Sauvegarde df_train_clean et df_test_clean dans data/interim/."""
+def run_cleaning_pipeline(df: pd.DataFrame, cfg: DictConfig):
+    # Résolution dynamique du chemin interim via PROJECT_ROOT
     interim_dir = (PROJECT_ROOT / cfg.data.interim.dir).resolve()
     interim_dir.mkdir(parents=True, exist_ok=True)
 
-    train_path = interim_dir / "train_clean.csv"
-    test_path  = interim_dir / "test_clean.csv"
+    steps_mapping = {
+        "section_0": Section0,
+        "section_1": Section1,
+        "section_2": Section2,
+        "section_3": Section3
+    }
 
-    df_train.to_csv(train_path, index=False)
-    df_test.to_csv(test_path, index=False)
+    current_df = df
+    
+    # Accès à cfg.cleaning.pipeline (chargé via config.yaml defaults)
+    for step_name in cfg.cleaning.pipeline:
+        if step_name in steps_mapping:
+            logger.info(f"--- Exécution : {step_name} ---")
+            processor = steps_mapping[step_name](step_name, cfg)
+            current_df = processor.run(current_df)
+            
+            # Utilise ta logique de sauvegarde par étape
+            processor.save_step(current_df, interim_dir)
+            
+    # Sauvegarde finale "Silver"
+    final_path = interim_dir / cfg.data.interim.file
+    current_df.to_csv(final_path, index=False)
+    logger.info(f"✓ Données sauvegardées dans : {final_path}")
+    
+    return current_df
 
-    logger.info(f"Train nettoyé  -> {train_path}")
-    logger.info(f"Test nettoyé   -> {test_path}")
+
+def export_and_audit_clean_data(df: pd.DataFrame, cfg: DictConfig):
+    """
+    Sauvegarde le fichier nettoyé dans INTERIM et met à jour l'empreinte MD5.
+    """
+    # 1. Résolution du chemin vers INTERIM via PROJECT_ROOT
+    # On utilise cfg.data.interim au lieu de processed
+    target_dir = (PROJECT_ROOT / cfg.data.interim.dir).resolve()
+    target_dir.mkdir(parents=True, exist_ok=True)
+    
+    file_path = target_dir / cfg.data.interim.file
+
+    # 2. Sauvegarde physique
+    df.to_csv(file_path, index=False)
+    logger.info(f"💾 Fichier nettoyé sauvegardé dans INTERIM sous : {file_path}")
+
+    # 3. Signature MD5
+    # On passe le file_path correct pour que le hash soit calculé sur le bon fichier
+    save_metadata(df, cfg, file_path)

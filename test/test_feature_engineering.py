@@ -86,4 +86,3 @@ def test_target_column_preserved():
     result = feature_engineering_seattle(df=_make_df(), drop_leaky_cols=True, output_dir=None)
     assert "Exited" in result.columns
     assert list(result["Exited"]) == [1, 0, 1]
-# end
