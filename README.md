@@ -1,7 +1,7 @@
 <table>
   <tr>
     <td><img src="https://www.alti-trading.fr/wp-content/uploads/2020/08/fortuneo-prime-150.webp" alt="Fortuneo logo" height="48" /></td>
-    <td><h1>Projet_ML2_G8 — Prédiction du churn bancaire · Fortuneo Bank</h1></td>
+    <td><h1>Projet ML2 G8 — Prédiction du churn bancaire · Fortuneo Bank</h1></td>
   </tr>
 </table>
 
